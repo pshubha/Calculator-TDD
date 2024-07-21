@@ -26,8 +26,8 @@ test("it should return output sum of multiple numbers",() => {
 // 3. Allow the add method to handle new lines between numbers (instead of commas).
 
 test("it should return output sum of numbers when contains new line between numbers", ()=>{
-    render(<StrCalculator />)
-    throw new Error();
+    expect(add("1,2\n,3")).toBe(6);
+    expect(add("1,2\n3\n4")).toBe(10);
 })
 
 // 4. Support different delimiters
