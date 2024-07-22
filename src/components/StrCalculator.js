@@ -12,7 +12,6 @@ export  const add =(numbers)=> {
     newNum = numbers.match(/-?\d+/g).map(Number);
 
     const negativeNumber = newNum.filter(num => num < 0);
-    console.log(negativeNumber, newNum,numbers)
     if (negativeNumber.length > 0) {
         throw new Error(`negative numbers not allowed: ${negativeNumber.join(',')}`);
     }
