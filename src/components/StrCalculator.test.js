@@ -1,5 +1,5 @@
-import { render, screen, cleanup } from '@testing-library/react';
-import StrCalculator, { add } from './StrCalculator'
+import {  cleanup } from '@testing-library/react';
+import { add } from './StrCalculator'
 
 afterEach(cleanup);
 // 1. simple String calculator 
@@ -33,11 +33,31 @@ test("it should return output sum of numbers when contains new line between numb
 // 4. Support different delimiters
 
 test("it should return output sum of numbers even when contains delimiters", ()=>{
-    throw new Error();
+    expect(add("//;\n1;2")).toBe(3);
 })
 
 // 5. Negative number will throw an exception
 
 test("it throw exception when contain negative number", ()=>{
-    throw new Error();
+    expect(() => add('1,-2,-3')).toThrow('negative numbers not allowed: -2,-3');
+})
+
+//6. Delimiters can be of any length with the following format: “//[delimiter]\n”
+
+test("it should return output sum of numbers even when contains delimiters with any length format", ()=>{
+    expect(add("//[***]\n1***2***3")).toBe(6);
+})
+
+// 7.Allow multiple delimiters like this: “//[delim1][delim2]\n”
+
+test("it should return output sum of numbers even when contains multiple delimiters", ()=>{
+    expect(add("//[*][%]\n1*2%3")).toBe(6);
+})
+
+// 8. Numbers bigger than 1000 should be ignored
+
+test("it should return output sum of numbers but number greater than 1000 should be ignored", ()=>{
+    expect(add('2,1001')).toBe(2);
+    expect(add('1,2,1001')).toBe(3);
+    expect(add('1,1000')).toBe(1001);
 })
